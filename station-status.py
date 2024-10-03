@@ -8,10 +8,6 @@ AUTHOR: KAIZER MACNI
 """
 
 
-
-
-
-
 #VARIABLES
 
 
@@ -187,7 +183,7 @@ dolores_wl_img_status.setVisibility(1)
 
 
 #base_path = os.path.join()
-svg_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\", str(today) + "-abra_data.svg")
+svg_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\svg\\", str(today) + "-abra_data.svg")
 png_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\", str(today) + "-abra_data.png")
 
 exporter = QgsLayoutExporter(layout)
@@ -202,9 +198,9 @@ layoutHF.initializeDefaults()
 documentHF = QDomDocument()
 
 # read template content
-template_file = open('C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\WL change monitoring\\HF.qpt')
-template_content = template_file.read()
-template_file.close()
+template_fileHF = open('C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\WL change monitoring\\HF.qpt')
+template_content = template_fileHF.read()
+template_fileHF.close()
 documentHF.setContent(template_content)
 
 
@@ -216,7 +212,7 @@ project.layoutManager().addLayout(layoutHF)
 layoutHF = QgsProject.instance().layoutManager().layoutByName("HFORECAST HMD MAIN")
 station_status_img = layoutHF.itemById("RG_WL_STATUS")
 
-folder_path = "C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\"
+folder_path = "C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\svg\\"
 filename = str(today) + "-abra_data.svg"
 
 station_status_img.setPicturePath(folder_path + filename)
