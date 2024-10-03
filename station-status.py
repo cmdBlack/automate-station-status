@@ -1,11 +1,9 @@
 #VARIABLES
 
-#date = "03-10-2024"
-
-rr_vigan = 4.0
-rr_bantay = 2.5
-rr_dolores = 0
-rr_luba = 0
+rr_vigan = 180
+rr_bantay = 200
+rr_dolores = 450
+rr_luba = 1
 
 #RISING
 #RECEDING
@@ -55,11 +53,12 @@ from qgis.PyQt.QtCore import (
 from datetime import date
 
 today = date.today()
+#today = "2024-10-02"
 
 project = QgsProject.instance()
             
 manager = project.layoutManager()
-layoutName = "RG-WL_STAT"
+#layoutName = "RG-WL_STAT"
 layouts_list = manager.printLayouts()
 
 
@@ -77,10 +76,6 @@ template_content = template_file.read()
 template_file.close()
 document.setContent(template_content)
 
-# Remove any duplicate layouts
-for i in layouts_list:
-    if i.name() == layoutName:
-        manager.removeLayout(i)
 
 # load layout from template and add to Layout Manager
 layout.loadFromTemplate(document, QgsReadWriteContext()) 
@@ -131,10 +126,6 @@ elif 60 < rr_dolores < 181:
 elif rr_dolores > 180:
     dolores_rain = h_rains
 
-#vigan_rain = l_rains
-#bantay_rain = l_rains
-#luba_rain = l_rains
-#dolores_rain = l_rains
 
 BANTAY_WL_STAT = wl_bantay + "_BANTAY"
 DOLORES_WL_STAT = wl_dolores + "_DOLORES"
@@ -179,6 +170,8 @@ dolores_wl_img_status = layout.itemById(DOLORES_WL_STAT)
 dolores_wl_img_status.setVisibility(1)
 
 
+
+
 #base_path = os.path.join()
 svg_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\", str(today) + "-abra_data.svg")
 png_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\", str(today) + "-abra_data.png")
@@ -186,3 +179,33 @@ png_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVE
 exporter = QgsLayoutExporter(layout)
 exporter.exportToSvg(svg_path, QgsLayoutExporter.SvgExportSettings())
 exporter.exportToImage(png_path, QgsLayoutExporter.ImageExportSettings())
+
+
+
+##########################  HF TEMPLATE
+layoutHF = QgsPrintLayout(project)
+layoutHF.initializeDefaults()
+
+documentHF = QDomDocument()
+
+# read template content
+template_file = open('C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\WL change monitoring\\HF.qpt')
+template_content = template_file.read()
+template_file.close()
+documentHF.setContent(template_content)
+
+
+# load layout from template and add to Layout Manager
+layoutHF.loadFromTemplate(documentHF, QgsReadWriteContext()) 
+project.layoutManager().addLayout(layoutHF)
+
+
+layoutHF = QgsProject.instance().layoutManager().layoutByName("HFORECAST HMD MAIN")
+station_status_img = layoutHF.itemById("RG_WL_STATUS")
+
+folder_path = "C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\"
+filename = str(today) + "-abra_data.svg"
+
+station_status_img.setPicturePath(folder_path + filename)
+
+#########################################################
