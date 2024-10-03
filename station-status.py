@@ -1,9 +1,11 @@
 #VARIABLES
 
-rr_vigan = 180
-rr_bantay = 200
-rr_dolores = 450
-rr_luba = 1
+
+rr_vigan = 184
+rr_bantay = 185
+rr_dolores = 0
+rr_luba = 80
+
 
 #RISING
 #RECEDING
@@ -53,12 +55,11 @@ from qgis.PyQt.QtCore import (
 from datetime import date
 
 today = date.today()
-#today = "2024-10-02"
+#today = "2024-10-03"
 
 project = QgsProject.instance()
             
 manager = project.layoutManager()
-#layoutName = "RG-WL_STAT"
 layouts_list = manager.printLayouts()
 
 
@@ -181,7 +182,6 @@ exporter.exportToSvg(svg_path, QgsLayoutExporter.SvgExportSettings())
 exporter.exportToImage(png_path, QgsLayoutExporter.ImageExportSettings())
 
 
-
 ##########################  HF TEMPLATE
 layoutHF = QgsPrintLayout(project)
 layoutHF.initializeDefaults()
@@ -207,5 +207,6 @@ folder_path = "C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTOR
 filename = str(today) + "-abra_data.svg"
 
 station_status_img.setPicturePath(folder_path + filename)
+#station_status_img.refreshPicture()
 
 #########################################################
