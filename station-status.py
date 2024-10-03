@@ -15,12 +15,7 @@ wl_bantay = "RECEDING"
 wl_lapaz = "RECEDING"
 wl_dolores = "RECEDING"
 
-
-
-
-
-
-
+###########################################################
 
 import os
 
@@ -185,7 +180,9 @@ dolores_wl_img_status.setVisibility(1)
 
 
 #base_path = os.path.join()
-pdf_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\", str(today) + "-abra_data.svg")
+svg_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\", str(today) + "-abra_data.svg")
+png_path = os.path.join("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\OUTPUTS\\WL-CHANGE\\", str(today) + "-abra_data.png")
 
 exporter = QgsLayoutExporter(layout)
-exporter.exportToSvg(pdf_path, QgsLayoutExporter.SvgExportSettings())
+exporter.exportToSvg(svg_path, QgsLayoutExporter.SvgExportSettings())
+exporter.exportToImage(png_path, QgsLayoutExporter.ImageExportSettings())
