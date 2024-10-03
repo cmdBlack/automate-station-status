@@ -1,11 +1,24 @@
+
+"""
+Description: A script to automate generation of Daily Hydrological Forecast
+             for Abra River Basin located in Northern Luzon Philippines.
+            
+AUTHOR: KAIZER MACNI
+
+"""
+
+
+
+
+
+
 #VARIABLES
 
 
-rr_vigan = 184
-rr_bantay = 185
+rr_vigan = 4.0
+rr_bantay = 2.5
 rr_dolores = 0
-rr_luba = 80
-
+rr_luba = 0
 
 #RISING
 #RECEDING
