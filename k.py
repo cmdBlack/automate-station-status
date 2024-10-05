@@ -16,10 +16,10 @@ AUTHOR: KAIZER MACNI
 #rr_dolores = 0
 #rr_luba = 0
 
-rr_vigan = int(input("Vigan Rainfall: "))
-rr_bantay = int(input("Bantay Rainfall: "))
-rr_dolores = int(input("Dolores Rainfall: "))
-rr_luba = int(input("Luba Rainfall: "))
+rr_vigan = float(input("Vigan Rainfall: "))
+rr_bantay = float(input("Bantay Rainfall: "))
+rr_dolores = float(input("Dolores Rainfall: "))
+rr_luba = float(input("Luba Rainfall: "))
 
 
 #RISING
@@ -38,28 +38,6 @@ wl_dolores = input("Dolores WL: ")
 
 import os
 
-"""from qgis.core import (
-    QgsGeometry,
-    QgsMapSettings,
-    QgsPrintLayout,
-    QgsMapSettings,
-    QgsMapRendererParallelJob,
-    QgsLayoutItemLabel,
-    QgsLayoutItemLegend,
-    QgsLayoutItemMap,
-    QgsLayoutItemPolygon,
-    QgsLayoutItemScaleBar,
-    QgsLayoutExporter,
-    QgsLayoutItem,
-    QgsLayoutPoint,
-    QgsLayoutSize,
-    QgsUnitTypes,
-    QgsProject,
-    QgsFillSymbol,
-    QgsAbstractValidityCheck,
-    check,
-)"""
-
 
 from qgis.core import *
 from PyQt5.QtWidgets import QApplication
@@ -68,7 +46,9 @@ from qgis.gui import QgsMapCanvas, QgsLayerTreeMapCanvasBridge
 
 app = QApplication([])
 qgs = QgsApplication([], False)
-qgs.setPrefixPath("C:\\OSGeo4W\\apps\\qgis-ltr", True)
+#qgs.setPrefixPath("C:\\OSGeo4W\\apps\\qgis-ltr", True)
+qgs.setPrefixPath("C:\\OSGeo4W\\bin", True)
+
 qgs.initQgis()
 
 canvas = QgsMapCanvas()
