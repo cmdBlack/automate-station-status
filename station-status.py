@@ -11,18 +11,28 @@ AUTHOR: KAIZER MACNI
 #VARIABLES
 
 
-rr_vigan = 4.0
-rr_bantay = 2.5
-rr_dolores = 0
-rr_luba = 0
+#rr_vigan = 4.0
+#rr_bantay = 2.5
+#rr_dolores = 0
+#rr_luba = 0
+
+rr_vigan = input("Vigan Rainfall: ")
+rr_bantay = input("Bantay Rainfall: ")
+rr_dolores = input("Dolores Rainfall: ")
+rr_luba = input("Luba Rainfall: ")
+
 
 #RISING
 #RECEDING
 #NSC
 
-wl_bantay = "RECEDING"
-wl_lapaz = "RECEDING"
-wl_dolores = "RECEDING"
+#wl_bantay = "RECEDING"
+#wl_lapaz = "RECEDING"
+#wl_dolores = "RECEDING"
+
+wl_bantay = input("Bantay WL: ")
+wl_lapaz = input("LaPaz WL: ")
+wl_dolores = input("Dolores WL: ")
 
 ###########################################################
 
