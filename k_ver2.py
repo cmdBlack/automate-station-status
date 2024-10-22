@@ -1,4 +1,3 @@
-
 """
 Description: A script to automate generation of Daily Hydrological Forecast
              for Abra River Basin located in Northern Luzon Philippines.
@@ -7,92 +6,11 @@ AUTHOR: KAIZER MACNI
 
 """
 
-
-#VARIABLES
-
-
-rr_vigan = 0.0
-rr_bantay = 0.0
-rr_dolores = 0.0
-rr_luba = 4.0
-rr_lapaz = 0.0
-rr_lagayan = 0.0
-rr_danglas = 0.0
-
-#rr_vigan = float(input("Vigan Rainfall: "))
-#rr_bantay = float(input("Bantay Rainfall: "))
-#rr_dolores = float(input("Dolores Rainfall: "))
-#rr_luba = float(input("Luba Rainfall: "))
-#rr_lapaz = float(input("LaPaz Rainfall: "))
-#rr_lagayan = float(input("Lagayan Rainfall: "))
-#rr_danglas = float(input("Danglas Rainfall: "))
-
-
-#RISING
-#RECEDING
-#NSC
-
-wl_bantay = "NSC"
-wl_lapaz = "NSC"
-wl_dolores = "NSC"
-
-#wl_bantay = str(input("Bantay WL TREND: "))
-#wl_lapaz = str(input("LaPaz WL TREND: "))
-#wl_dolores = str(input("Dolores WL TREND: "))
-
-
-#NORMAL
-#ALERT
-#ALARM
-#CRITICAL
-#wl_bantay_stat = "NORMAL"
-wl_lapaz_stat = "CRITICAL"
-#wl_dolores_stat = "NORMAL"
-
-#wl_bantay_stat = str(input("Bantay WL STATUS: "))
-#wl_lapaz_stat = str(input("LaPaz WL STATUS: "))
-#wl_dolores_stat = str(input("Dolores WL STATUS: "))
-
-wl_bantay_val = 9.45
-#wl_lapaz_val = xx.x
-wl_dolores_val = 59.6
-
-#wl_bantay_val = float(input("Bantay Current WL: "))
-#wl_lapaz_val = float(input("LaPaz Current WL: "))
-#wl_dolores_val = float(input("Dolores Current WL: "))
-
-
-
-
-
-
-
-###########################################################
-
 import os
 
-from qgis.core import (
-    QgsGeometry,
-    QgsMapSettings,
-    QgsPrintLayout,
-    QgsMapSettings,
-    QgsMapRendererParallelJob,
-    QgsLayoutItemLabel,
-    QgsLayoutItemLegend,
-    QgsLayoutItemMap,
-    QgsLayoutItemPolygon,
-    QgsLayoutItemScaleBar,
-    QgsLayoutExporter,
-    QgsLayoutItem,
-    QgsLayoutPoint,
-    QgsLayoutSize,
-    QgsUnitTypes,
-    QgsProject,
-    QgsFillSymbol,
-    QgsAbstractValidityCheck,
-    check,
-)
-
+from qgis.core import *
+from PyQt5.QtWidgets import QApplication
+from qgis.gui import QgsMapCanvas, QgsLayerTreeMapCanvasBridge
 from qgis.PyQt.QtGui import (
     QPolygonF,
     QColor,
@@ -104,10 +22,96 @@ from qgis.PyQt.QtCore import (
     QSize,
 )
 
+from qgis.PyQt.QtXml import QDomDocument
+
+
 from datetime import date
+
+
+
+
+#VARIABLES
+
+"""
+rr_vigan = 0.0
+rr_bantay = 0.0
+rr_dolores = 0.0
+rr_luba = 4.0
+rr_lapaz = 0.0
+rr_lagayan = 0.0
+rr_danglas = 0.0
+"""
+print("INPUT RAINFALL VALUES")
+rr_vigan = float(input("Vigan Rainfall: "))
+rr_bantay = float(input("Bantay Rainfall: "))
+rr_dolores = float(input("Dolores Rainfall: "))
+rr_luba = float(input("Luba Rainfall: "))
+rr_lapaz = float(input("LaPaz Rainfall: "))
+rr_lagayan = float(input("Lagayan Rainfall: "))
+rr_danglas = float(input("Danglas Rainfall: "))
+
+
+#RISING
+#RECEDING
+#NSC
+
+#wl_bantay = "NSC"
+#wl_lapaz = "NSC"
+#wl_dolores = "NSC"
+print("INPUT WATER LEVEL STATUS AND VALUES")
+#print("INPUT - NORMAL / ALERT / ALARM / CRITICAL")
+wl_bantay_val = float(input("Bantay Current WL: "))
+print("INPUT - RISING / NSC / RECEDING")
+wl_bantay = input("Bantay WL TREND: ")
+print("INPUT - NORMAL / ALERT / ALARM / CRITICAL")
+wl_lapaz_stat = str(input("LaPaz WL STATUS: "))
+print("INPUT - RISING / NSC / RECEDING")
+wl_lapaz = input("LaPaz WL TREND: ")
+#print("INPUT - NORMAL / ALERT / ALARM / CRITICAL")
+wl_dolores_val = float(input("Dolores Current WL: "))
+print("INPUT - RISING / NSC / RECEDING")
+wl_dolores = input("Dolores WL TREND: ")
+
+
+#NORMAL
+#ALERT
+#ALARM
+#CRITICAL
+#wl_bantay_stat = "NORMAL"
+#wl_lapaz_stat = "CRITICAL"
+#wl_dolores_stat = "NORMAL"
+
+#wl_bantay_stat = str(input("Bantay WL STATUS: "))
+#wl_lapaz_stat = str(input("LaPaz WL STATUS: "))
+#wl_dolores_stat = str(input("Dolores WL STATUS: "))
+
+#wl_bantay_val = 9.45
+#wl_lapaz_val = xx.x
+#wl_dolores_val = 59.6
+
+#wl_bantay_val = float(input("Bantay Current WL: "))
+#wl_lapaz_val = float(input("LaPaz Current WL: "))
+#wl_dolores_val = float(input("Dolores Current WL: "))
+
+###########################################################
+
+
+app = QApplication([])
+qgs = QgsApplication([], False)
+#qgs.setPrefixPath("C:\\OSGeo4W\\apps\\qgis-ltr", True)
+qgs.setPrefixPath("C:\\OSGeo4W\\bin", True)
+
+qgs.initQgis()
+
+canvas = QgsMapCanvas()
+
+project = QgsProject.instance()
+bridge = QgsLayerTreeMapCanvasBridge(project.layerTreeRoot(), canvas)
+project.read("C:\\Users\\User\\Documents\\KAI FILES\\AbRBFFWC OBSERVER DIRECTORY\\ABRA BASIN DIRECTORY\\ABRA BASIN DIRECTORY\\DAILY REPORT\\WL change monitoring\\000abraBasinREPORTHF_automated.qgz")
 
 today = date.today()
 #today = "2024-10-03"
+
 
 project = QgsProject.instance()
             
@@ -386,5 +390,7 @@ station_status_img.setPicturePath(folder_path + filename)
 #station_status_img.refreshPicture()
 
 print("done")
+
+qgs.exitQgis()
 
 #########################################################
