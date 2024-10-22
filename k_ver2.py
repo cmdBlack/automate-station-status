@@ -19,13 +19,13 @@ rr_lapaz = 0.0
 rr_lagayan = 0.0
 rr_danglas = 0.0
 
-#rr_vigan = input("Vigan Rainfall: ")
-#rr_bantay = input("Bantay Rainfall: ")
-#rr_dolores = input("Dolores Rainfall: ")
-#rr_luba = input("Luba Rainfall: ")
-#rr_lapaz = input("LaPaz Rainfall: ")
-#rr_lagayan = input("Lagayan Rainfall: ")
-#rr_danglas = input("Danglas Rainfall: ")
+#rr_vigan = float(input("Vigan Rainfall: "))
+#rr_bantay = float(input("Bantay Rainfall: "))
+#rr_dolores = float(input("Dolores Rainfall: "))
+#rr_luba = float(input("Luba Rainfall: "))
+#rr_lapaz = float(input("LaPaz Rainfall: "))
+#rr_lagayan = float(input("Lagayan Rainfall: "))
+#rr_danglas = float(input("Danglas Rainfall: "))
 
 
 #RISING
@@ -45,17 +45,25 @@ wl_dolores = "NSC"
 #ALERT
 #ALARM
 #CRITICAL
-wl_bantay_stat = "NORMAL"
-wl_lapaz_stat = "NORMAL"
-wl_dolores_stat = "NORMAL"
+#wl_bantay_stat = "NORMAL"
+wl_lapaz_stat = "CRITICAL"
+#wl_dolores_stat = "NORMAL"
 
 #wl_bantay_stat = str(input("Bantay WL STATUS: "))
 #wl_lapaz_stat = str(input("LaPaz WL STATUS: "))
 #wl_dolores_stat = str(input("Dolores WL STATUS: "))
 
-#BANTAY ALERT=6.5, ALARM=7.5, CRITICAL=9.4
-#LAPAZ ALERT=39, ALARM=40, CRITICAL=42
-#DOLORES ALERT=53, ALARM=54, CRITICAL=56
+wl_bantay_val = 9.45
+#wl_lapaz_val = xx.x
+wl_dolores_val = 59.6
+
+#wl_bantay_val = float(input("Bantay Current WL: "))
+#wl_lapaz_val = float(input("LaPaz Current WL: "))
+#wl_dolores_val = float(input("Dolores Current WL: "))
+
+
+
+
 
 
 
@@ -137,7 +145,7 @@ ALERT = QgsFillSymbol.createSimple({'color': 'yellow'})
 ALARM = QgsFillSymbol.createSimple({'color': 'orange'})
 CRITICAL = QgsFillSymbol.createSimple({'color': 'red'})
 
-
+####  RAINFALL  #####################
 
 if rr_vigan == 0:
     vigan_rain = n_rains
@@ -202,6 +210,10 @@ elif 60 < rr_danglas < 181:
 elif rr_danglas > 180:
     danglas_rain = h_rains 
     
+#########################################
+
+####  WATER LEVEL  #####################
+
     
 
 
@@ -259,6 +271,7 @@ danglas_rr_img.setPicturePath(danglas_rain)
 bantay_wl_img_status = layout.itemById(BANTAY_WL_STAT)
 bantay_wl_img_status.setVisibility(1)
 
+"""
 if wl_bantay_stat == "NORMAL":
     bantay_wl_img_status.setSymbol(NORMAL)
 elif wl_bantay_stat == "ALERT":
@@ -269,6 +282,17 @@ elif wl_bantay_stat == "CRITICAL":
     bantay_wl_img_status.setSymbol(CRITICAL)
 else:
     bantay_wl_img_status.setSymbol(NORMAL)
+"""    
+    
+#BANTAY ALERT=6.5, ALARM=7.5, CRITICAL=9.4
+if wl_bantay_val < 6.5:
+    bantay_wl_img_status.setSymbol(NORMAL)
+elif 6.5 <= wl_bantay_val < 7.5:
+    bantay_wl_img_status.setSymbol(ALERT)
+elif 7.5 <= wl_bantay_val < 9.4:
+    bantay_wl_img_status.setSymbol(ALARM)
+elif wl_bantay_val >= 9.4:
+    bantay_wl_img_status.setSymbol(CRITICAL)
     
 
 
@@ -286,9 +310,22 @@ elif wl_lapaz_stat == "CRITICAL":
 else:
     lapaz_wl_img_status.setSymbol(NORMAL)
 
+"""
+#LAPAZ ALERT=39, ALARM=40, CRITICAL=42    
+if wl_lapaz_val < 39:
+    lapaz_wl_img_status.setSymbol(NORMAL)
+elif 39 <= wl_lapaz_val < 40:
+    lapaz_wl_img_status.setSymbol(ALERT)
+elif 40 <= wl_lapaz_val < 42:
+    lapaz_wl_img_status.setSymbol(ALARM)
+elif wl_lapaz_val >= 42:
+    lapaz_wl_img_status.setSymbol(CRITICAL)
+"""
+
 dolores_wl_img_status = layout.itemById(DOLORES_WL_STAT)
 dolores_wl_img_status.setVisibility(1)
 
+"""
 if wl_dolores_stat == "NORMAL":
     dolores_wl_img_status.setSymbol(NORMAL)
 elif wl_dolores_stat == "ALERT":
@@ -299,6 +336,17 @@ elif wl_dolores_stat == "CRITICAL":
     dolores_wl_img_status.setSymbol(CRITICAL)
 else:
     dolores_wl_img_status.setSymbol(NORMAL)
+"""
+
+#DOLORES ALERT=53, ALARM=54, CRITICAL=56    
+if wl_dolores_val < 53:
+    dolores_wl_img_status.setSymbol(NORMAL)
+elif 53 <= wl_dolores_val < 54:
+    dolores_wl_img_status.setSymbol(ALERT)
+elif 54 <= wl_dolores_val < 56:
+    dolores_wl_img_status.setSymbol(ALARM)
+elif wl_dolores_val >= 56:
+    dolores_wl_img_status.setSymbol(CRITICAL)
 
 
 #base_path = os.path.join()
